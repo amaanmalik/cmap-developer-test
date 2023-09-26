@@ -9,7 +9,7 @@ namespace Timesheets.Services
         void Add(Timesheet timesheet);
         IList<Timesheet> GetAll();
 
-        IList<TimesheetsList> GetTimeSheets();
+        IList<ProjectTimesheet> GetTimeSheets();
     }
 
     public class TimesheetService : ITimesheetService
@@ -32,7 +32,7 @@ namespace Timesheets.Services
             return timesheets;
         }
 
-        public IList<TimesheetsList> GetTimeSheets()
+        public IList<ProjectTimesheet> GetTimeSheets()
         {
             return _timesheetRepository.GetTimeSheets();
         }

@@ -9,7 +9,7 @@ namespace Timesheets.Repositories
         void AddTimesheet(Timesheet timesheet);
         IList<Timesheet> GetAllTimesheets();
 
-        IList<TimesheetsList> GetTimeSheets();
+        IList<ProjectTimesheet> GetTimeSheets();
     }
 
     public class TimesheetRepository : ITimesheetRepository
@@ -32,7 +32,7 @@ namespace Timesheets.Repositories
             return timesheets;
         }
 
-        public IList<TimesheetsList> GetTimeSheets()
+        public IList<ProjectTimesheet> GetTimeSheets()
         {
 
             var timesheetData = _context.Timesheets
@@ -54,7 +54,7 @@ namespace Timesheets.Repositories
                     te.TimesheetEntry.FirstName,
                     te.TimesheetEntry.LastName
                 })
-                .Select(group => new TimesheetsList
+                .Select(group => new ProjectTimesheet
                 {
                     Project = group.Key.Project,
                     ProjectTotalHours = projectTotalHoursDictionary[group.Key.Project],

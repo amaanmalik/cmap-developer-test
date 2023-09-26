@@ -1,6 +1,6 @@
 ﻿namespace Timesheets.Models
 {
-    public class TimesheetsList
+    public class ProjectTimesheet
     {
         public string Project { get; set; }
         public double ProjectTotalHours { get; set; }

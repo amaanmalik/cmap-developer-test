@@ -119,9 +119,9 @@ namespace Timesheets.Test
                 }
             };
 
-            var timesheetsListOrdered = new List<TimesheetsList>
+            var timesheetsListOrdered = new List<ProjectTimesheet>
             {
-                new TimesheetsList
+                new ProjectTimesheet
                 {
                     Project = "Project A",
                     FirstName = "John",
@@ -129,7 +129,7 @@ namespace Timesheets.Test
                     ProjectTotalHours = 10,
                     TotalHours = 10                    
                 },
-                 new TimesheetsList
+                 new ProjectTimesheet
                 {
                     Project = "Project B",
                     FirstName = "John",

@@ -1,4 +1,5 @@
 using Timesheets.Infrastructure;
+using Timesheets.Models;
 using Timesheets.Repositories;
 using Timesheets.Services;
 
@@ -11,6 +12,7 @@ services.AddControllersWithViews().AddRazorRuntimeCompilation();
 services.AddDbContext<DataContext>();
 services.AddScoped<ITimesheetService, TimesheetService>();
 services.AddScoped<ITimesheetRepository, TimesheetRepository>();
+services.AddScoped<ICsvExportService<ProjectTimesheet>, CsvExportService<ProjectTimesheet>>();
 
 var app = builder.Build();
 
