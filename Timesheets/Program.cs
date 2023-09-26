@@ -7,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
 // Add services to the container.
-services.AddControllersWithViews();
+services.AddControllersWithViews().AddRazorRuntimeCompilation();
 services.AddDbContext<DataContext>();
 services.AddScoped<ITimesheetService, TimesheetService>();
 services.AddScoped<ITimesheetRepository, TimesheetRepository>();

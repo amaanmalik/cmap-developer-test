@@ -8,6 +8,8 @@ namespace Timesheets.Services
     {
         void Add(Timesheet timesheet);
         IList<Timesheet> GetAll();
+
+        IList<TimesheetsList> GetTimeSheets();
     }
 
     public class TimesheetService : ITimesheetService
@@ -28,6 +30,11 @@ namespace Timesheets.Services
         {
             var timesheets = _timesheetRepository.GetAllTimesheets();
             return timesheets;
+        }
+
+        public IList<TimesheetsList> GetTimeSheets()
+        {
+            return _timesheetRepository.GetTimeSheets();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Timesheets.Infrastructure;
+﻿using Microsoft.EntityFrameworkCore;
+using Timesheets.Infrastructure;
 using Timesheets.Models;
 
 namespace Timesheets.Repositories
@@ -7,6 +8,8 @@ namespace Timesheets.Repositories
     {
         void AddTimesheet(Timesheet timesheet);
         IList<Timesheet> GetAllTimesheets();
+
+        IList<TimesheetsList> GetTimeSheets();
     }
 
     public class TimesheetRepository : ITimesheetRepository
@@ -25,8 +28,43 @@ namespace Timesheets.Repositories
 
         public IList<Timesheet> GetAllTimesheets()
         {
-            var timesheets = _context.Timesheets.ToList();
+            var timesheets = _context.Timesheets.Include(t=>t.TimesheetEntry).ToList();
             return timesheets;
+        }
+
+        public IList<TimesheetsList> GetTimeSheets()
+        {
+
+            var timesheetData = _context.Timesheets
+                .Include(t => t.TimesheetEntry)
+                .ToList();
+
+            var projectTotalHoursDictionary = timesheetData
+                .GroupBy(te => te.TimesheetEntry.Project)
+                .ToDictionary(
+                    group => group.Key,
+                    group => group.Sum(te => Convert.ToDouble(te.TimesheetEntry.Hours))
+                );
+
+            return _context.Timesheets
+                .Include(t => t.TimesheetEntry)
+                .GroupBy(te => new
+                {
+                    te.TimesheetEntry.Project,
+                    te.TimesheetEntry.FirstName,
+                    te.TimesheetEntry.LastName
+                })
+                .Select(group => new TimesheetsList
+                {
+                    Project = group.Key.Project,
+                    ProjectTotalHours = projectTotalHoursDictionary[group.Key.Project],
+                    FirstName = group.Key.FirstName,
+                    LastName = group.Key.LastName,
+                    TotalHours = group.Sum(te => Convert.ToDouble(te.TimesheetEntry.Hours))
+                })
+                .OrderByDescending(te => te.ProjectTotalHours) // Sort by project total hours
+                .ThenByDescending(te => te.TotalHours) // Then sort by employee total hours
+                .ToList();
         }
     }
 }

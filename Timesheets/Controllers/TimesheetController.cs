@@ -21,7 +21,7 @@ namespace Timesheets.Controllers
 
         [HttpPost]
         public ActionResult Index(TimesheetEntry timesheetEntry)
-        {
+        {            
             var timesheet = new Timesheet()
             {
                 TimesheetEntry = timesheetEntry,
@@ -31,6 +31,9 @@ namespace Timesheets.Controllers
             _timesheetService.Add(timesheet);
 
             var timesheets = _timesheetService.GetAll();
+            var res = _timesheetService.GetTimeSheets();
+
+            ViewData["TimeSheetsList"] = res;
 
             return View();
         }

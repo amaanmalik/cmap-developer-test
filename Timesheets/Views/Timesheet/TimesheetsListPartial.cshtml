@@ -1,0 +1,27 @@
+﻿@model IEnumerable<Timesheets.Models.TimesheetsList>
+@if (@Model != null)
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Project</th>
+                <th>Project Total Hours</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Total Hours</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var entry in Model)
+            {
+                <tr>
+                    <td>@entry.Project</td>
+                    <td>@entry.ProjectTotalHours</td>
+                    <td>@entry.FirstName</td>
+                    <td>@entry.LastName</td>
+                    <td>@entry.TotalHours</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

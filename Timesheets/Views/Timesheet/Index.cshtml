@@ -78,6 +78,7 @@
         <h2>Timesheet Viewer</h2>
         <p>
             View timesheets for multiple projects and sort by total hours worked to see where time is being spent.
+            @await Html.PartialAsync("TimesheetsListPartial", ViewData["TimeSheetsList"])
         </p>
     </div>
 </div>
